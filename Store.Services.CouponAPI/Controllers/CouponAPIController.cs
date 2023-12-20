@@ -46,7 +46,7 @@ namespace Store.Services.CouponAPI.Controllers
             {
                 Coupon obj = _db.Coupons.First(u => u.CouponId == id);
                 _response.Result = _mapper.Map<CouponDto>(obj);
-                 
+
             }
             catch (Exception ex)
             {
@@ -113,6 +113,7 @@ namespace Store.Services.CouponAPI.Controllers
         }
 
         [HttpDelete]
+        [Route("{id:int}")]
         public ResponseDto Delete(int id)
         {
             try

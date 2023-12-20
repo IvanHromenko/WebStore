@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Store.Web.Models;
 using Store.Web.Service.IService;
+using System.Collections.Generic;
 
 namespace Store.Web.Controllers
 {
@@ -47,7 +48,26 @@ namespace Store.Web.Controllers
 
         public async Task<IActionResult> CouponDelete(int couponId)
         {
-            return View();
+            ResponseDto? response = await _couponService.GetCouponByIdAsync(couponId);
+
+            if (response != null && response.IsSuccess)
+            {
+                CouponDto model = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(response.Result));
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CouponDelete(CouponDto coupondto)
+        {
+            ResponseDto? response = await _couponService.DeleteCouponAsync(coupondto.CouponId);
+
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(CouponIndex));
+            }
+            return View(coupondto);
         }
     }
 }
