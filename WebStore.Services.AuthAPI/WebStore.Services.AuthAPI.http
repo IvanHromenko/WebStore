@@ -1,0 +1,6 @@
+@WebStore.Services.AuthAPI_HostAddress = http://localhost:5082
+
+GET {{WebStore.Services.AuthAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
